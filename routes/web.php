@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\State;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/play', function () {
+    $states=State::all();
+    return view('play',['states'=>$states]);
+});
+
+Route::get('/saves', [App\Http\Controllers\SaveController::class, 'index']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
