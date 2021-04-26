@@ -9,7 +9,7 @@
         You dont have any saves!
     @else
         @foreach($saves as $save)
-            <h3>{{$save->save}}</h3>
+            <li><a href="/saves/{{$save->id}}">{{$save->name}}</a></li>
         @endforeach
     @endif
 @else

@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-
-    <a href="/saves">asd</a>
-
+    <a href="/play">play</a>
+    <br>
+    <a href="/saves">saves</a>
 @endsection

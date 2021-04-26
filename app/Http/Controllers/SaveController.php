@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Save;
-
+use App\Models\State;
 
 class SaveController extends Controller
 {
@@ -23,7 +23,7 @@ class SaveController extends Controller
     //  */
     // public function create()
     // {
-    //     return view('projects.create',['tags' => Tag::all()]);
+    //
     // }
 
     // /**
@@ -32,22 +32,18 @@ class SaveController extends Controller
     //  * @param  \Illuminate\Http\Request  $request
     //  * @return \Illuminate\Http\Response
     //  */
-    // public function store(Request $request)
-    // {
-    //    # dd(request()->all());
-    // //    $project = new Project();
-    // //    $project -> title=request()->validate([
-    // //        'title' => 'required|min:3',
-    // //        //'valami' => 'required'
-    // //        ]);
-    // //    $project ->save();
+    public function store(Request $request)
+    {
 
-    //     $project=Project::create(
-    //         $this -> validateProject()
-    //     );
-    //     $project->tags()->attach(request('tags'));
-    //     return redirect(route('projects.index'));
-    // }
+        $save=new Save();
+        $data=request()->input();
+        $save ->name=$data['title'];
+        $save ->user_id=Auth::id();
+        $save ->state=$data['savestate'];
+        $save->save();
+
+        return redirect('/saves');
+    }
 
     // /**
     //  * Display the specified resource.
@@ -55,11 +51,10 @@ class SaveController extends Controller
     //  * @param  int  $id
     //  * @return \Illuminate\Http\Response
     //  */
-    // public function show(Project $project)
-    // {
-    //    # $project = Project::FindOrFail($id);
-    //     return view('projects.show',compact('project'));
-    // }
+    public function show(Save $save)
+    {
+        return view('show',compact('save'));
+    }
 
     // /**
     //  * Show the form for editing the specified resource.
@@ -67,13 +62,15 @@ class SaveController extends Controller
     //  * @param  int  $id
     //  * @return \Illuminate\Http\Response
     //  */
-    // public function edit($id)
-    // {
-    //     $project = Project::find($id);
-    //     return view('projects.edit', [
-    //         'project' => $project
-    //     ]);
-    // }
+    public function edit($id)
+    {
+        $states=State::all();
+        $load = Save::find($id);
+        return view('load', [
+            'load' => $load,
+            'states'=>$states
+        ]);
+    }
 
     // /**
     //  * Update the specified resource in storage.
@@ -82,18 +79,16 @@ class SaveController extends Controller
     //  * @param  int  $id
     //  * @return \Illuminate\Http\Response
     //  */
-    // public function update(Request $request, Project $project)
-    // {
-    //     // $project=Project::find($id);
-    //     // $project->title=request('title');
-    //     // $project->save();
-
-    //     $project->update(
-    //         $this->validateProject()
-    //     );
-
-    //     return redirect($project->path());
-    // }
+    public function update(Request $request, $id)
+    {
+        $save=Save::find($id);
+        $data=request()->input();
+        $save ->name=$data['title'];
+        $save ->state=$data['savestate'];
+        $save->save();
+        $url='/saves/'.$id;
+        return redirect($url);
+    }
 
     // /**
     //  * Remove the specified resource from storage.
@@ -101,12 +96,12 @@ class SaveController extends Controller
     //  * @param  int  $id
     //  * @return \Illuminate\Http\Response
     //  */
-    // public function destroy($id)
-    // {
-    //     $project=Project::find($id);
-    //     $project->delete();
-    //     return redirect('/projects');
-    // }
+    public function destroy($id)
+    {
+        $save=Save::find($id);
+        $save->delete();
+        return redirect('/saves');
+    }
 
 
 }

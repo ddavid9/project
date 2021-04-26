@@ -1,10 +1,10 @@
 @extends('mainlayout')
 
-
 @section('save')
 
-<form action="/saves" method=POST>
+<form action="/saves/{{$load->id}}" method=POST>
     @csrf
+    @method('PUT')
     <input type="hidden" name="savestate" id="savestate" value=0>
     Name: <input type="text" name="title" id="title" value="{{old('title')}}" required>
     @error('title')
@@ -20,9 +20,11 @@
 @section('init')
 
 <script>
+var load = {!! json_encode($load->toArray()) !!};
+
+state=load.state;
 img.src="/pics/"+state+".PNG";
 document.getElementById("test").innerHTML = state;
-
 savestate.value=state;
 
 txt.value =states[state].text;

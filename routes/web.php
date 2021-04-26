@@ -1,5 +1,5 @@
 <?php
-
+use App\Models\Save;
 use App\Models\State;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +23,13 @@ Route::get('/play', function () {
     return view('play',['states'=>$states]);
 });
 
+
 Route::get('/saves', [App\Http\Controllers\SaveController::class, 'index']);
+Route::post('/saves', [App\Http\Controllers\SaveController::class, 'store']);
+Route::get('/load/{state}', [App\Http\Controllers\SaveController::class, 'edit']);
+Route::put('/saves/{save}', [App\Http\Controllers\SaveController::class, 'update']);
+Route::get('/saves/{save}', [App\Http\Controllers\SaveController::class, 'show']);
+Route::delete('/saves/{save}', [App\Http\Controllers\SaveController::class, 'destroy']);
 
 
 Route::get('/dashboard', function () {
