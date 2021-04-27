@@ -22,13 +22,13 @@ class StateFactory extends Factory
     public function definition()
     {
         return [
-            'text' => $this->faker->sentence(),
-            'a' => rand(0, 8),
-            'b' => rand(0, 8),
-            'c' => rand(0, 8),
-            'atext' => $this->faker->name(),
-            'btext' => $this->faker->name(),
-            'ctext' => $this->faker->name(),
+            'text' => 'something happened',
+            'a' => 1,
+            'b' => 1,
+            'c' => 1,
+            'atext' => 'do something',
+            'btext' => 'do something',
+            'ctext' => 'do something',
         ];
     }
 }

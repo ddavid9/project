@@ -59,8 +59,8 @@
         state =selectedValue;
 
         //end of game
-        if(state>=8){
-            document.getElementById("test").innerHTML = "u won pog";
+        if(state>=11){
+            document.getElementById("test").innerHTML = "Játék vége";
             return false;
         }else{
 
