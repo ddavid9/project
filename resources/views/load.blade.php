@@ -2,6 +2,15 @@
 
 @section('save')
 
+<?php
+    if ((!isset($_SERVER['HTTP_REFERER']))or!($_SERVER['HTTP_REFERER'] == "http://127.0.0.1:8000/saves/$load->id"))
+    {
+        header("Location: http://127.0.0.1:8000/saves");
+        exit();
+    }
+?>
+
+
 <form action="/saves/{{$load->id}}" method=POST>
     @csrf
     @method('PUT')

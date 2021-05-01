@@ -2,7 +2,6 @@
 
 
 @section('save')
-
 <form action="/saves" method=POST>
     @csrf
     <input type="hidden" name="savestate" id="savestate" value=0>
@@ -11,9 +10,15 @@
         <p>{{$errors->first('title')}}</p>
     @enderror
 
-    <input type="submit" value="Save">
+    <input type="submit" value="Save" id="savebutton">
 </form>
 
+@if (!(auth()->check()))
+<script>
+savebutton.disabled = "disabled";
+</script>
+Need to be logged in to save!
+@endif
 @endsection
 
 
